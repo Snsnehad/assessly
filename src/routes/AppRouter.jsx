@@ -36,7 +36,7 @@ export default function AppRouter() {
                 brand="Assessly"
               />
             }>
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={<UserDashboardPage />} />
         </Route>
 
         <Route element={<AuthLayout />}>
