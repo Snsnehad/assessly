@@ -15,7 +15,7 @@ export default function SignupPage() {
 
   const onSubmit = (values) => {
     signup(values);
-    navigate("/dashboard");
+    navigate("/assessment");
   };
 
   return (

@@ -1,16 +1,13 @@
 import {
   ClipboardList,
   FileText,
-  Home,
   Shield,
   Users,
   UserCircle2,
 } from "lucide-react";
 
 export const userNav = [
-  { label: "Dashboard", to: "/dashboard", icon: Home },
   { label: "Assessment", to: "/assessment", icon: ClipboardList },
-  { label: "Report", to: "/report", icon: FileText },
   { label: "Profile", to: "/profile", icon: UserCircle2 },
 ];
 

@@ -48,8 +48,8 @@ export default function ProfilePage() {
             <p className="mt-1 font-semibold">Growth</p>
           </div>
           <div className="rounded-2xl bg-slate-50 p-4 dark:bg-slate-900">
-            <p className="text-slate-500">Report exports</p>
-            <p className="mt-1 font-semibold">12 used this month</p>
+            <p className="text-slate-500">Assessment status</p>
+            <p className="mt-1 font-semibold">In progress</p>
           </div>
           <div className="rounded-2xl bg-slate-50 p-4 dark:bg-slate-900">
             <p className="text-slate-500">Security</p>

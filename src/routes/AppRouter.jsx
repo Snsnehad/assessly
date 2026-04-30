@@ -9,9 +9,7 @@ import ProtectedRoute from "./ProtectedRoute";
 const LandingPage = lazy(() => import("../pages/LandingPage"));
 const LoginPage = lazy(() => import("../pages/LoginPage"));
 const SignupPage = lazy(() => import("../pages/SignupPage"));
-const UserDashboardPage = lazy(() => import("../pages/user/UserDashboardPage"));
 const AssessmentPage = lazy(() => import("../pages/user/QuestionnairePage"));
-const ReportPage = lazy(() => import("../pages/user/ReportsPage"));
 const ProfilePage = lazy(() => import("../pages/user/ProfilePage"));
 const AdminDashboardPage = lazy(() => import("../pages/admin/AdminDashboardPage"));
 const ManageQuestionsPage = lazy(() => import("../pages/admin/ManageQuestionsPage"));
@@ -28,15 +26,8 @@ export default function AppRouter() {
       }
     >
       <Routes>
-        <Route element={
-              <AppLayout
-                navItems={userNav}
-                title="Assessment Workspace"
-                subtitle="One deep written assessment and one final report"
-                brand="Assessly"
-              />
-            }>
-          <Route path="/" element={<UserDashboardPage />} />
+        <Route element={<PublicLayout />}>
+          <Route path="/" element={<LandingPage />} />
         </Route>
 
         <Route element={<AuthLayout />}>
@@ -50,14 +41,14 @@ export default function AppRouter() {
               <AppLayout
                 navItems={userNav}
                 title="Assessment Workspace"
-                subtitle="One deep written assessment and one final report"
+                subtitle="Continue your written assessment"
                 brand="Assessly"
               />
             }
           >
-            <Route path="/dashboard" element={<UserDashboardPage />} />
+            <Route path="/dashboard" element={<Navigate to="/assessment" replace />} />
             <Route path="/assessment" element={<AssessmentPage />} />
-            <Route path="/report" element={<ReportPage />} />
+            <Route path="/report" element={<Navigate to="/assessment" replace />} />
             <Route path="/profile" element={<ProfilePage />} />
           </Route>
         </Route>

@@ -9,11 +9,8 @@ export const userProgress = {
   reportStatus: "Pending until assessment is complete",
   canRetake: false,
   answers: {
-    "q-1":
-      "My background shaped a strong need for stability, but it also taught me to observe patterns beneath surface choices.",
-    "q-2":
-      "I became more deliberate after watching several family members make rushed decisions under pressure.",
-    "q-43":
-      "I usually frame financial risk as a question of emotional resilience rather than pure numbers, because the recovery path matters to me.",
+    "q-1": "steady-practical",
+    "q-2": "reflective-balanced",
+    "q-43": "growth-oriented",
   },
 };

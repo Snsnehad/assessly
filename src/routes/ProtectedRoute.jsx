@@ -9,7 +9,7 @@ export default function ProtectedRoute({ role }) {
   }
 
   if (role && user.role !== role) {
-    return <Navigate to={user.role === "admin" ? "/admin" : "/dashboard"} replace />;
+    return <Navigate to={user.role === "admin" ? "/admin" : "/assessment"} replace />;
   }
 
   return <Outlet />;

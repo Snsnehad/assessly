@@ -83,7 +83,7 @@ export default function LandingPage() {
                   Begin Now <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
-              <Link to="/dashboard">
+              <Link to="/assessment">
                 <Button variant="secondary" size="lg">
                   Explore Demo
                 </Button>
