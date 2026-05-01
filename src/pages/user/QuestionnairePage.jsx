@@ -77,13 +77,13 @@ export default function QuestionnairePage() {
 
   return (
     <div className="min-h-[calc(100vh-4rem)] bg-[#eef3f9] dark:bg-black">
-      <section className="relative border-b border-slate-200 bg-white px-5 pt-7 dark:border-white/10 dark:bg-[#07111f] sm:px-10">
-        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+      <section className="relative border-b border-slate-200 bg-white px-5 pt-4 dark:border-white/10 dark:bg-[#07111f] sm:px-10">
+        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div>
-            <h1 className="text-2xl font-semibold tracking-tight text-[#07111f] dark:text-white">
+            <h1 className="text-[22px] font-semibold tracking-tight text-[#07111f] dark:text-white">
               {activeQuestion?.sectionTitle}
             </h1>
-            <p className="mt-1 text-sm font-medium text-[#6f86ad] dark:text-[#8fa0bc]">
+            <p className="mt-0.5 text-xs font-medium text-[#6f86ad] dark:text-[#8fa0bc]">
               Investor Risk Assessment
             </p>
           </div>
@@ -95,20 +95,20 @@ export default function QuestionnairePage() {
               className="group text-left"
               aria-expanded={navigatorOpen}
             >
-              <span className="block text-[11px] font-medium uppercase tracking-[0.16em] text-[#7b8dab] dark:text-[#8fa0bc]">
+              <span className="block text-[10px] font-medium uppercase tracking-[0.16em] text-[#7b8dab] dark:text-[#8fa0bc]">
                 Question
               </span>
-              <span className="mt-1 flex items-center gap-2 font-mono text-lg font-bold text-[#07111f] dark:text-white">
+              <span className="mt-0.5 flex items-center gap-2 font-mono text-base font-bold text-[#07111f] dark:text-white">
                 {currentIndex + 1} / {questions.length}
                 <ListChecks className="h-4 w-4 text-[#9aa7c0] transition group-hover:text-[#2563eb]" />
               </span>
             </button>
-            <div className="h-9 w-px bg-slate-200 dark:bg-white/10" />
+            <div className="h-8 w-px bg-slate-200 dark:bg-white/10" />
             <div>
-              <span className="block text-[11px] font-medium uppercase tracking-[0.16em] text-[#7b8dab] dark:text-[#8fa0bc]">
+              <span className="block text-[10px] font-medium uppercase tracking-[0.16em] text-[#7b8dab] dark:text-[#8fa0bc]">
                 Saved
               </span>
-              <span className="mt-1 block text-sm font-semibold text-[#324763] dark:text-[#d9e6f8]">
+              <span className="mt-0.5 block text-xs font-semibold text-[#324763] dark:text-[#d9e6f8]">
                 {formatDateTime(progress.lastSavedAt)}
               </span>
             </div>
@@ -122,7 +122,7 @@ export default function QuestionnairePage() {
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-[#8fa0bc]">
                   Question Navigator
                 </p>
-                <h3 className="mt-2 text-lg font-semibold text-[#07111f] dark:text-white">
+                <h3 className="mt-2 text-base font-semibold text-[#07111f] dark:text-white">
                   Jump between prompts
                 </h3>
               </div>
@@ -140,7 +140,7 @@ export default function QuestionnairePage() {
               {questionGroups.map((group) => (
                 <div key={group.title} className="space-y-3">
                   <div className="flex items-center justify-between gap-3">
-                    <p className="text-sm font-semibold text-[#07111f] dark:text-white">{group.title}</p>
+                    <p className="text-xs font-semibold text-[#07111f] dark:text-white">{group.title}</p>
                     <span className="text-xs text-slate-500 dark:text-[#8fa0bc]">
                       {group.questions.length} questions
                     </span>
@@ -159,7 +159,7 @@ export default function QuestionnairePage() {
                             setNavigatorOpen(false);
                           }}
                           className={[
-                            "flex h-10 items-center justify-center rounded-lg border text-sm font-semibold transition-all",
+                            "flex h-10 items-center justify-center rounded-lg border text-xs font-semibold transition-all",
                             isActive
                               ? "border-[#2563eb] bg-[#2563eb] text-white shadow-lg shadow-blue-500/20"
                               : hasAnswer
@@ -180,39 +180,36 @@ export default function QuestionnairePage() {
           </div>
         ) : null}
 
-        <div className="mt-7 h-1 w-full bg-[#e3e9f3] dark:bg-white/10">
+        <div className="mt-4 h-1 w-full bg-[#e3e9f3] dark:bg-white/10">
           <div
             className="h-full bg-[#2563eb] transition-all duration-500"
             style={{ width: `${completion}%` }}
           />
         </div>
-        <div className="absolute bottom-[-1px] right-7 translate-y-full text-sm font-bold text-[#2563eb]">
+        <div className="absolute bottom-[-1px] right-7 translate-y-full text-xs font-bold text-[#2563eb]">
           {Math.round(completion)}%
         </div>
       </section>
 
       {activeQuestion ? (
-        <form className="mx-auto mt-10 flex min-h-[calc(100vh-16rem)] w-[calc(100%-2.5rem)] max-w-[1200px] flex-col rounded-2xl border border-[#dbe3ee] bg-white px-6 py-4 shadow-[0_18px_45px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-[#07111f] dark:shadow-[0_18px_45px_rgba(0,0,0,0.45)] sm:px-8 lg:px-10">
+        <form className="mx-auto mt-8 flex min-h-[calc(100vh-14rem)] w-[calc(100%-2.5rem)] max-w-[1200px] flex-col rounded-2xl border border-[#dbe3ee] bg-white px-6 py-4 shadow-[0_18px_45px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-[#07111f] dark:shadow-[0_18px_45px_rgba(0,0,0,0.45)] sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <span className="inline-flex h-7 items-center gap-2 rounded-md border border-blue-200 bg-blue-50 px-3 font-mono text-sm font-bold text-[#2563eb] dark:border-blue-400/30 dark:bg-blue-500/10 dark:text-blue-300">
+              <span className="inline-flex h-7 items-center gap-2 rounded-md border border-blue-200 bg-blue-50 px-3 font-mono text-xs font-bold text-[#2563eb] dark:border-blue-400/30 dark:bg-blue-500/10 dark:text-blue-300">
                 Q {currentIndex + 1}
               </span>
-              <span className="text-sm font-medium text-[#5c6f8d] dark:text-[#aebdd2]">Select one answer</span>
+              <span className="text-xs font-medium text-[#5c6f8d] dark:text-[#aebdd2]">Select one answer</span>
             </div>
-            <span className="font-mono text-sm text-[#8fa0bc] dark:text-[#8fa0bc]">{remainingCount} remaining</span>
+            <span className="font-mono text-xs text-[#8fa0bc] dark:text-[#8fa0bc]">{remainingCount} remaining</span>
           </div>
 
-          <div className="mt-7">
-            <h2 className="max-w-[920px] text-2xl font-semibold leading-[1.45] tracking-tight text-[#07111f] dark:text-white">
+          <div className="mt-2">
+            <h2 className="max-w-full text-[20px] font-semibold leading-[1.45] tracking-tight text-[#07111f] dark:text-white">
               {activeQuestion.label}
             </h2>
-            <p className="mt-2 text-base text-[#5c6f8d] dark:text-[#aebdd2]">
-              Choose the option closest to your natural pattern.
-            </p>
           </div>
 
-          <div className="mt-8 space-y-3">
+          <div className="mt-6 grid gap-3 lg:grid-cols-2">
             {activeQuestion.choices.map((choice, index) => {
               const selected = answerValue === choice.value;
               const letter = String.fromCharCode(65 + index);
@@ -239,7 +236,7 @@ export default function QuestionnairePage() {
                   />
                   <span
                     className={[
-                      "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border text-sm font-bold",
+                      "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border text-xs font-bold",
                       selected
                         ? "border-[#2563eb] bg-[#2563eb] text-white"
                         : "border-[#dbe3ee] bg-[#f8fafc] text-[#6b7d95] dark:border-white/10 dark:bg-[#101e32] dark:text-[#aebdd2]",
@@ -249,7 +246,7 @@ export default function QuestionnairePage() {
                   </span>
                   <span
                     className={[
-                      "min-w-0 flex-1 text-lg font-medium leading-7",
+                      "min-w-0 flex-1 text-base font-medium leading-7",
                       selected ? "text-[#0b46bd] dark:text-blue-200" : "text-[#07111f] dark:text-slate-100",
                     ].join(" ")}
                   >
@@ -277,7 +274,7 @@ export default function QuestionnairePage() {
 
           <div className="mt-auto border-t border-[#dbe3ee] pt-7 dark:border-white/10">
             <div className="flex flex-wrap items-center justify-between gap-4">
-              <div className="flex items-center gap-4 text-sm">
+              <div className="flex items-center gap-4 text-xs">
                 <span className="text-[#8fa0bc] dark:text-[#aebdd2]">
                   {activeQuestion.required ? "Required" : "Optional"}
                 </span>
@@ -291,7 +288,7 @@ export default function QuestionnairePage() {
                   type="button"
                   variant="secondary"
                   size="sm"
-                  className="h-11 rounded-lg border border-[#dbe3ee] bg-white px-6 text-base font-medium text-[#39506f] shadow-sm hover:bg-slate-50 dark:border-white/10 dark:bg-[#0b1626] dark:text-slate-100 dark:hover:bg-[#101e32]"
+                  className="h-11 rounded-lg border border-[#dbe3ee] bg-white px-6 text-sm font-medium text-[#39506f] shadow-sm hover:bg-slate-50 dark:border-white/10 dark:bg-[#0b1626] dark:text-slate-100 dark:hover:bg-[#101e32]"
                   onClick={() => setCurrentIndex((value) => Math.max(value - 1, 0))}
                   disabled={currentIndex === 0}
                 >
@@ -301,7 +298,7 @@ export default function QuestionnairePage() {
                   type="button"
                   variant="ghost"
                   size="sm"
-                  className="h-11 rounded-lg px-4 text-base font-medium text-[#8fa0bc] hover:bg-transparent hover:text-[#5c6f8d] dark:hover:text-white"
+                  className="h-11 rounded-lg px-4 text-sm font-medium text-[#8fa0bc] hover:bg-transparent hover:text-[#5c6f8d] dark:hover:text-white"
                   onClick={() => notify("Progress saved. You can exit and return later.")}
                 >
                   Save & exit
@@ -309,7 +306,7 @@ export default function QuestionnairePage() {
                 <Button
                   type="button"
                   size="sm"
-                  className="h-11 rounded-lg bg-[#2563eb] px-8 text-base font-semibold shadow-none hover:bg-[#1d4ed8]"
+                  className="h-11 rounded-lg bg-[#2563eb] px-8 text-sm font-semibold shadow-none hover:bg-[#1d4ed8]"
                   onClick={async () => {
                     const valid = await form.trigger(activeQuestion.id);
                     if (!valid) {
