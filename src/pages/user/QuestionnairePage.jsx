@@ -1,8 +1,7 @@
-import { Clock3, ListChecks, Save, X } from "lucide-react";
+import { ListChecks, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "../../components/Button";
-import ProgressBar from "../../components/ProgressBar";
 import { useFetch } from "../../hooks/useFetch";
 import { useToast } from "../../hooks/useToast.jsx";
 import { mockApi } from "../../utils/mockApi";
@@ -74,47 +73,63 @@ export default function QuestionnairePage() {
 
   const answerValue = activeQuestion ? form.watch(activeQuestion.id) || "" : "";
 
+  const remainingCount = Math.max(questions.length - currentIndex, 0);
+
   return (
-    <div className="w-full space-y-4">
-      <div className="sticky top-[121px] z-20 rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 shadow-sm backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/90 md:top-[73px]">
-        <div className="flex flex-wrap items-center justify-between gap-3">
+    <div className="min-h-[calc(100vh-4rem)] bg-[#eef3f9] dark:bg-black">
+      <section className="relative border-b border-slate-200 bg-white px-5 pt-7 dark:border-white/10 dark:bg-[#07111f] sm:px-10">
+        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="text-xs font-medium text-brand-600">{activeQuestion?.sectionTitle}</p>
-            <h2 className="mt-0.5 text-lg font-semibold">Phase 1 Assessment</h2>
+            <h1 className="text-2xl font-semibold tracking-tight text-[#07111f] dark:text-white">
+              {activeQuestion?.sectionTitle}
+            </h1>
+            <p className="mt-1 text-sm font-medium text-[#6f86ad] dark:text-[#8fa0bc]">
+              Investor Risk Assessment
+            </p>
           </div>
-          <div className="flex flex-wrap gap-2 text-xs sm:text-sm">
+
+          <div className="flex items-end gap-7 text-right">
             <button
               type="button"
               onClick={() => setNavigatorOpen((open) => !open)}
-              className="inline-flex items-center gap-2 rounded-xl bg-slate-50 px-3 py-2 font-medium transition hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800"
+              className="group text-left"
               aria-expanded={navigatorOpen}
             >
-              <ListChecks className="h-4 w-4 text-brand-600" />
-              Question {currentIndex + 1} of {questions.length}
+              <span className="block text-[11px] font-medium uppercase tracking-[0.16em] text-[#7b8dab] dark:text-[#8fa0bc]">
+                Question
+              </span>
+              <span className="mt-1 flex items-center gap-2 font-mono text-lg font-bold text-[#07111f] dark:text-white">
+                {currentIndex + 1} / {questions.length}
+                <ListChecks className="h-4 w-4 text-[#9aa7c0] transition group-hover:text-[#2563eb]" />
+              </span>
             </button>
-            <div className="rounded-xl bg-slate-50 px-3 py-2 dark:bg-slate-900">
-              <div className="flex items-center gap-2">
-                <Save className="h-4 w-4 text-accent-500" />
-                Saved {formatDateTime(progress.lastSavedAt)}
-              </div>
+            <div className="h-9 w-px bg-slate-200 dark:bg-white/10" />
+            <div>
+              <span className="block text-[11px] font-medium uppercase tracking-[0.16em] text-[#7b8dab] dark:text-[#8fa0bc]">
+                Saved
+              </span>
+              <span className="mt-1 block text-sm font-semibold text-[#324763] dark:text-[#d9e6f8]">
+                {formatDateTime(progress.lastSavedAt)}
+              </span>
             </div>
           </div>
         </div>
+
         {navigatorOpen ? (
-          <div className="absolute left-4 right-4 top-[calc(100%+12px)] z-30 rounded-[28px] border border-slate-200 bg-white p-4 shadow-2xl shadow-slate-900/10 dark:border-slate-800 dark:bg-slate-950 md:left-auto md:w-[520px]">
-            <div className="flex items-center justify-between gap-3 border-b border-slate-200 pb-4 dark:border-slate-800">
+          <div className="absolute right-5 top-[calc(100%+12px)] z-30 w-[min(520px,calc(100vw-40px))] rounded-lg border border-slate-200 bg-white p-4 shadow-2xl shadow-slate-900/10 dark:border-white/10 dark:bg-[#0b1626] dark:shadow-black/40">
+            <div className="flex items-center justify-between gap-3 border-b border-slate-200 pb-4 dark:border-white/10">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-[#8fa0bc]">
                   Question Navigator
                 </p>
-                <h3 className="mt-2 text-lg font-semibold text-slate-900 dark:text-white">
+                <h3 className="mt-2 text-lg font-semibold text-[#07111f] dark:text-white">
                   Jump between prompts
                 </h3>
               </div>
               <button
                 type="button"
                 onClick={() => setNavigatorOpen(false)}
-                className="rounded-2xl border border-slate-200 p-2 transition hover:bg-slate-100 dark:border-slate-800 dark:hover:bg-slate-900"
+                className="rounded-lg border border-slate-200 p-2 transition hover:bg-slate-100 dark:border-white/10 dark:hover:bg-white/10"
                 aria-label="Close question navigator"
               >
                 <X className="h-4 w-4" />
@@ -125,10 +140,8 @@ export default function QuestionnairePage() {
               {questionGroups.map((group) => (
                 <div key={group.title} className="space-y-3">
                   <div className="flex items-center justify-between gap-3">
-                    <p className="text-sm font-semibold text-slate-900 dark:text-white">
-                      {group.title}
-                    </p>
-                    <span className="text-xs text-slate-500">
+                    <p className="text-sm font-semibold text-[#07111f] dark:text-white">{group.title}</p>
+                    <span className="text-xs text-slate-500 dark:text-[#8fa0bc]">
                       {group.questions.length} questions
                     </span>
                   </div>
@@ -146,12 +159,12 @@ export default function QuestionnairePage() {
                             setNavigatorOpen(false);
                           }}
                           className={[
-                            "flex h-11 items-center justify-center rounded-2xl border text-sm font-medium transition-all",
+                            "flex h-10 items-center justify-center rounded-lg border text-sm font-semibold transition-all",
                             isActive
-                              ? "border-brand-500 bg-brand-600 text-white shadow-lg shadow-brand-500/20"
+                              ? "border-[#2563eb] bg-[#2563eb] text-white shadow-lg shadow-blue-500/20"
                               : hasAnswer
-                                ? "border-emerald-200 bg-emerald-50 text-emerald-700 hover:border-emerald-300 hover:bg-emerald-100 dark:border-emerald-900/60 dark:bg-emerald-950/40 dark:text-emerald-200"
-                                : "border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-950/60 dark:text-slate-300 dark:hover:bg-slate-900",
+                                ? "border-emerald-200 bg-emerald-50 text-emerald-700 hover:border-emerald-300 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-300"
+                                : "border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50 dark:border-white/10 dark:bg-[#07111f] dark:text-[#aebdd2] dark:hover:border-white/20 dark:hover:bg-[#101e32]",
                           ].join(" ")}
                           aria-current={isActive ? "step" : undefined}
                           title={question.label}
@@ -166,30 +179,40 @@ export default function QuestionnairePage() {
             </div>
           </div>
         ) : null}
-        <div className="mt-3">
-          <ProgressBar value={completion} />
-          <div className="mt-1.5 flex flex-wrap justify-between gap-2 text-xs text-slate-500">
-            <span>{Math.round(completion)}% complete</span>
-            <span>Autosave enabled</span>
-          </div>
+
+        <div className="mt-7 h-1 w-full bg-[#e3e9f3] dark:bg-white/10">
+          <div
+            className="h-full bg-[#2563eb] transition-all duration-500"
+            style={{ width: `${completion}%` }}
+          />
         </div>
-      </div>
+        <div className="absolute bottom-[-1px] right-7 translate-y-full text-sm font-bold text-[#2563eb]">
+          {Math.round(completion)}%
+        </div>
+      </section>
 
       {activeQuestion ? (
-        <form className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-950 md:p-6">
-          <div className="max-w-5xl space-y-3">
-            <div className="inline-flex rounded-full bg-brand-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-700 dark:bg-brand-500/10 dark:text-brand-100">
-                Select one answer
+        <form className="mx-auto mt-10 flex min-h-[calc(100vh-16rem)] w-[calc(100%-2.5rem)] max-w-[1200px] flex-col rounded-2xl border border-[#dbe3ee] bg-white px-6 py-4 shadow-[0_18px_45px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-[#07111f] dark:shadow-[0_18px_45px_rgba(0,0,0,0.45)] sm:px-8 lg:px-10">
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <span className="inline-flex h-7 items-center gap-2 rounded-md border border-blue-200 bg-blue-50 px-3 font-mono text-sm font-bold text-[#2563eb] dark:border-blue-400/30 dark:bg-blue-500/10 dark:text-blue-300">
+                Q {currentIndex + 1}
+              </span>
+              <span className="text-sm font-medium text-[#5c6f8d] dark:text-[#aebdd2]">Select one answer</span>
             </div>
-            <h3 className="text-xl font-semibold leading-snug text-slate-950 dark:text-white md:text-2xl">
+            <span className="font-mono text-sm text-[#8fa0bc] dark:text-[#8fa0bc]">{remainingCount} remaining</span>
+          </div>
+
+          <div className="mt-7">
+            <h2 className="max-w-[920px] text-2xl font-semibold leading-[1.45] tracking-tight text-[#07111f] dark:text-white">
               {activeQuestion.label}
-            </h3>
-            <p className="text-sm leading-6 text-slate-500 dark:text-slate-400">
+            </h2>
+            <p className="mt-2 text-base text-[#5c6f8d] dark:text-[#aebdd2]">
               Choose the option closest to your natural pattern.
             </p>
           </div>
 
-          <div className="mt-5 grid gap-3 md:grid-cols-2">
+          <div className="mt-8 space-y-3">
             {activeQuestion.choices.map((choice, index) => {
               const selected = answerValue === choice.value;
               const letter = String.fromCharCode(65 + index);
@@ -198,10 +221,10 @@ export default function QuestionnairePage() {
                 <label
                   key={choice.id}
                   className={[
-                    "flex min-h-20 cursor-pointer gap-3 rounded-2xl border p-4 transition-all",
+                    "flex min-h-[74px] cursor-pointer items-center gap-4 rounded-[14px] border px-5 transition-all",
                     selected
-                      ? "border-brand-500 bg-brand-50 shadow-sm dark:bg-brand-500/10"
-                      : "border-slate-200 bg-white hover:border-brand-200 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-950 dark:hover:border-brand-900 dark:hover:bg-slate-900",
+                      ? "border-[#2563eb] bg-[#eef5ff] shadow-[0_0_0_1px_#2563eb] dark:border-blue-400 dark:bg-blue-500/15 dark:shadow-[0_0_0_1px_rgba(96,165,250,0.8)]"
+                      : "border-[#dbe3ee] bg-white hover:border-[#a9c4ef] hover:bg-[#fbfdff] dark:border-white/10 dark:bg-[#0b1626] dark:hover:border-blue-400/50 dark:hover:bg-[#101e32]",
                   ].join(" ")}
                 >
                   <input
@@ -216,24 +239,34 @@ export default function QuestionnairePage() {
                   />
                   <span
                     className={[
-                      "flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border text-xs font-semibold",
+                      "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border text-sm font-bold",
                       selected
-                        ? "border-brand-600 bg-brand-600 text-white"
-                        : "border-slate-200 bg-slate-50 text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300",
+                        ? "border-[#2563eb] bg-[#2563eb] text-white"
+                        : "border-[#dbe3ee] bg-[#f8fafc] text-[#6b7d95] dark:border-white/10 dark:bg-[#101e32] dark:text-[#aebdd2]",
                     ].join(" ")}
                   >
                     {letter}
                   </span>
-                  <span className="text-sm font-medium leading-6 text-slate-800 dark:text-slate-100">
+                  <span
+                    className={[
+                      "min-w-0 flex-1 text-lg font-medium leading-7",
+                      selected ? "text-[#0b46bd] dark:text-blue-200" : "text-[#07111f] dark:text-slate-100",
+                    ].join(" ")}
+                  >
                     {choice.label}
+                  </span>
+                  <span
+                    className={[
+                      "flex h-5 w-5 shrink-0 items-center justify-center rounded-full border",
+                      selected ? "border-[#2563eb] bg-[#2563eb] dark:border-blue-300 dark:bg-blue-400" : "border-[#c7d3e3] dark:border-[#40516a]",
+                    ].join(" ")}
+                    aria-hidden="true"
+                  >
+                    {selected ? <span className="h-1.5 w-1.5 rounded-full bg-white" /> : null}
                   </span>
                 </label>
               );
             })}
-            <div className="mt-1 flex flex-wrap items-center justify-between gap-3 border-t border-slate-200 pt-3 text-xs text-slate-500 dark:border-slate-800 md:col-span-2">
-              <span>{activeQuestion.required ? "Required question" : "Optional question"}</span>
-              <span>{answerValue ? "Answer selected" : "No answer selected"}</span>
-            </div>
           </div>
 
           {form.formState.errors[activeQuestion.id] ? (
@@ -242,44 +275,58 @@ export default function QuestionnairePage() {
             </p>
           ) : null}
 
-          <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-slate-200 pt-4 dark:border-slate-800">
-            <Button
-              type="button"
-              variant="secondary"
-              size="sm"
-              onClick={() => setCurrentIndex((value) => Math.max(value - 1, 0))}
-              disabled={currentIndex === 0}
-            >
-              Previous
-            </Button>
-            <div className="flex gap-2">
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                onClick={() => notify("Progress saved. You can exit and return later.")}
-              >
-                Save & Exit
-              </Button>
-              <Button
-                type="button"
-                size="sm"
-                onClick={async () => {
-                  const valid = await form.trigger(activeQuestion.id);
-                  if (!valid) {
-                    return;
-                  }
+          <div className="mt-auto border-t border-[#dbe3ee] pt-7 dark:border-white/10">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div className="flex items-center gap-4 text-sm">
+                <span className="text-[#8fa0bc] dark:text-[#aebdd2]">
+                  {activeQuestion.required ? "Required" : "Optional"}
+                </span>
+                <span className="flex items-center gap-2 font-semibold text-emerald-600">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                  {answerValue ? "Answer selected" : "No answer selected"}
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Button
+                  type="button"
+                  variant="secondary"
+                  size="sm"
+                  className="h-11 rounded-lg border border-[#dbe3ee] bg-white px-6 text-base font-medium text-[#39506f] shadow-sm hover:bg-slate-50 dark:border-white/10 dark:bg-[#0b1626] dark:text-slate-100 dark:hover:bg-[#101e32]"
+                  onClick={() => setCurrentIndex((value) => Math.max(value - 1, 0))}
+                  disabled={currentIndex === 0}
+                >
+                  Previous
+                </Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="h-11 rounded-lg px-4 text-base font-medium text-[#8fa0bc] hover:bg-transparent hover:text-[#5c6f8d] dark:hover:text-white"
+                  onClick={() => notify("Progress saved. You can exit and return later.")}
+                >
+                  Save & exit
+                </Button>
+                <Button
+                  type="button"
+                  size="sm"
+                  className="h-11 rounded-lg bg-[#2563eb] px-8 text-base font-semibold shadow-none hover:bg-[#1d4ed8]"
+                  onClick={async () => {
+                    const valid = await form.trigger(activeQuestion.id);
+                    if (!valid) {
+                      return;
+                    }
 
-                  if (currentIndex < questions.length - 1) {
-                    setCurrentIndex((value) => value + 1);
-                    return;
-                  }
+                    if (currentIndex < questions.length - 1) {
+                      setCurrentIndex((value) => value + 1);
+                      return;
+                    }
 
-                  notify("Assessment complete. Final report can now be generated.");
-                }}
-              >
-                {currentIndex === questions.length - 1 ? "Complete assessment" : "Next"}
-              </Button>
+                    notify("Assessment complete. Final report can now be generated.");
+                  }}
+                >
+                  {currentIndex === questions.length - 1 ? "Complete" : "Next"}
+                </Button>
+              </div>
             </div>
           </div>
         </form>

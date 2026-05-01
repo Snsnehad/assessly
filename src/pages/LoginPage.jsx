@@ -67,8 +67,8 @@ export default function LoginPage() {
       {/* ✅ Demo Credentials Info */}
       <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
         Demo:
-        <br />
-        Admin → admin@assessly.io / admin123
+        {/* <br />
+        Admin → admin@assessly.io / admin123 */}
         <br />
         User → user@assessly.io / user123
       </p>

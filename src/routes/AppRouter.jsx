@@ -26,8 +26,12 @@ export default function AppRouter() {
       }
     >
       <Routes>
-        <Route element={<PublicLayout />}>
-          <Route path="/" element={<LandingPage />} />
+        {/* <Route element={<PublicLayout />}> */}
+        <Route element={<AuthLayout />}>
+
+          {/* <Route path="/" element={<LandingPage />} /> */}
+          <Route path="/" element={<LoginPage />} />
+
         </Route>
 
         <Route element={<AuthLayout />}>
